@@ -104,6 +104,10 @@ class TwoStageClass(NgSpiceWrapper):
 
 
 class TwoStageMeasManager(object):
+    """
+    ! This class is never created.
+    """
+
     def __init__(self, design_specs_fname):
         self.design_specs_fname = design_specs_fname
         with open(design_specs_fname, "r") as f:

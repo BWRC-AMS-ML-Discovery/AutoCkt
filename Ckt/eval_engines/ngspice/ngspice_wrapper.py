@@ -6,6 +6,7 @@ FIXME: description here!
 # Std-Lib Imports
 import re, os, copy, random
 from typing import Optional, Any
+
 # from dataclasses import dataclass ## FIXME! get this ancient Python version upgraded already
 from multiprocessing.dummy import Pool as ThreadPool
 
@@ -106,6 +107,10 @@ class NgSpiceWrapper(object):
     def create_design_and_simulate(
         self, state: Any, dsn_name: Optional[str] = None, verbose: bool = False
     ):
+        """
+        ! This function is actually only used once in update().
+        """
+
         if debug:
             print("state", state)
             print("verbose", verbose)
@@ -122,6 +127,8 @@ class NgSpiceWrapper(object):
 
     def run(self, states, design_names=None, verbose=False):
         """
+        ! This function is only used in the TwoStageMeasManager class
+        which is never created.
 
         :param states:
         :param design_names: if None default design name will be used, otherwise the given design name will be used
