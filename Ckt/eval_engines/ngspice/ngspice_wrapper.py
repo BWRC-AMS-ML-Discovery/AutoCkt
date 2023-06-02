@@ -16,6 +16,7 @@ debug = False
 
 
 class NgSpiceWrapper(object):
+    #Fix here why we abs path to tmp?
     BASE_TMP_DIR = os.path.abspath("/tmp/ckt_da")
 
     def __init__(self, num_process, yaml_path, path, root_dir=None):

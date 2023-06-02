@@ -64,7 +64,7 @@ class TwoStageAmp(gym.Env):
     # obtains yaml file
     path = os.getcwd()
     CIR_YAML = (
-        path + "/eval_engines/ngspice/ngspice_inputs/yaml_files/two_stage_opamp.yaml"
+        path + "/Ckt/eval_engines/ngspice/ngspice_inputs/yaml_files/two_stage_opamp.yaml"
     )
 
     def __init__(self, env_config):
@@ -84,7 +84,7 @@ class TwoStageAmp(gym.Env):
         else:
             load_specs_path = (
                 TwoStageAmp.path
-                + "/autockt/gen_specs/ngspice_specs_gen_two_stage_opamp"
+                + "/Auto/autockt/gen_specs/ngspice_specs_gen_two_stage_opamp"
             )
             with open(load_specs_path, "rb") as f:
                 specs = pickle.load(f)
