@@ -35,7 +35,8 @@ setup(
         "ray==1.6.0", # Ray for RL, parallelization, training
         "ipython==7.27.0", # FIXME: probably dev only? 
         "pyyaml==5.4.1",
-        "autockt_shared",  # Local "workspace" dependency
+        "autockt_shared",
+        "protobuf==3.9"  # Local "workspace" dependency
     ],
     # extras_require={
     #     "dev": [
