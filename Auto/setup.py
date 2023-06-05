@@ -32,7 +32,7 @@ setup(
         "numpy==1.21.2",
         "scipy==1.7.1",
         "gym==0.18.3", # Core ML dependency: OpenAI Gym
-        "ray==1.6.0", # Ray for RL, parallelization, training
+        "ray==0.6.3", # Ray for RL, parallelization, training
         "ipython==7.27.0", # FIXME: probably dev only? 
         "pyyaml==5.4.1",
         "autockt_shared",  # Local "workspace" dependency
