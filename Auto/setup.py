@@ -33,6 +33,8 @@ setup(
         "scipy==1.1.0",
         "gym==0.10.5", # Core ML dependency: OpenAI Gym
         "ray==0.6.3", # Ray for RL, parallelization, training
+        "tensorflow", # FIXME: need specific version?
+        "opencv-python", # FIXME: need specific version?
         "ipython==6.5.0", # FIXME: probably dev only? 
         "pyyaml==5.1.2",
         "autockt_shared",  # Local "workspace" dependency
