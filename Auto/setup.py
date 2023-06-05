@@ -34,7 +34,7 @@ setup(
         "gym==0.10.5",  # Core ML dependency: OpenAI Gym
         "ray==0.6.3",  # Ray for RL, parallelization, training
         "tensorflow==1.13.1",  # "ray" needs these
-        "protobuf==3.20",  # "ray" needs these
+        "protobuf==3.20.0",  # "ray" needs these
         "opencv-python==4.6.0.66",  # "ray" needs these
         "ipython==6.5.0",  # FIXME: probably dev only?
         "pyyaml==5.1.2",
