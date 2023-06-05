@@ -36,7 +36,7 @@ The top level directory contains two sub-directories:
 ## Training AutoCkt
 Make sure that you are in the Anaconda environment. Before running training, the circuit netlist must be modified in order to point to the right library files in your directory. To do this, run the following command:
 ```
-python Ckt/eval_engines/scripts/correct_inputs.py 
+python Ckt/scripts/correct_inputs.py 
 ```
 
 To generate the design specifications that the agent trains on, run:
