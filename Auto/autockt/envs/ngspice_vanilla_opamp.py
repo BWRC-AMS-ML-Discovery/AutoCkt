@@ -212,7 +212,7 @@ class TwoStageAmp(gym.Env):
                 #
                 # !!! FIXME: this call here gotta get replaced!
                 #
-                create_design_and_simulate(param_val)[1].items(),
+                create_design_and_simulate(param_val).items(),
                 key=lambda k: k[0],
             )
         )
