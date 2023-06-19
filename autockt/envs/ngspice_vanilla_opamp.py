@@ -177,6 +177,12 @@ class TwoStageAmp(gym.Env):
 
         #observation is a combination of current specs distance from ideal, ideal spec, and current param vals
         self.ob = np.concatenate([cur_spec_norm, self.specs_ideal_norm, self.cur_params_idx])
+
+        
+        print("class TwoStageAmp end of reset")
+        IPython.core.debugger.set_trace()
+
+
         return self.ob
  
     def step(self, action):
