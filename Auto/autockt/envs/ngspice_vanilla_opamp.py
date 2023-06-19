@@ -70,6 +70,7 @@ class TwoStageAmp(gym.Env):
     CIR_YAML = SPECS_DIR + "in/two_stage_opamp.yaml"
 
     def __init__(self, env_config):
+        # Custom attributes
         self.multi_goal = env_config.get("multi_goal", False)
         self.generalize = env_config.get("generalize", False)
         self.num_valid = env_config.get("num_valid", 50)
@@ -77,27 +78,9 @@ class TwoStageAmp(gym.Env):
         self.valid = env_config.get("run_valid", False)
 
         self.env_steps = 0
-        with open(TwoStageAmp.CIR_YAML, "r") as f:
-            yaml_data = yaml.load(f, OrderedDictYAMLLoader)
 
-        # design specs
-        if self.generalize == False:
-            specs = yaml_data["target_specs"]
-        else:
-            load_specs_path = (
-                # TwoStageAmp.path +
-                SPECS_DIR
-                + "out/ngspice_specs_gen_two_stage_opamp"
-            )
-            with open(load_specs_path, "rb") as f:
-                specs = pickle.load(f)
-
-        self.specs = OrderedDict(sorted(specs.items(), key=lambda k: k[0]))
-        if self.specs_save:
-            with open(
-                "specs_" + str(self.num_valid) + str(random.randint(1, 100000)), "wb"
-            ) as f:
-                pickle.dump(self.specs, f)
+        self._load_specs()
+        self._save_specs()
 
         self.specs_ideal = []
         self.specs_id = list(self.specs.keys())
@@ -281,3 +264,28 @@ class TwoStageAmp(gym.Env):
         cur_specs = np.array(list(cur_specs.values()))
 
         return cur_specs
+
+    def _load_specs(self):
+        with open(TwoStageAmp.CIR_YAML, "r") as f:
+            yaml_data = yaml.load(f, OrderedDictYAMLLoader)
+
+        # design specs
+        if self.generalize == False:
+            specs = yaml_data["target_specs"]
+        else:
+            load_specs_path = (
+                # TwoStageAmp.path +
+                SPECS_DIR
+                + "out/ngspice_specs_gen_two_stage_opamp"
+            )
+            with open(load_specs_path, "rb") as f:
+                specs = pickle.load(f)
+
+        self.specs = OrderedDict(sorted(specs.items(), key=lambda k: k[0]))
+
+    def _save_specs(self):
+        if self.specs_save:
+            with open(
+                "specs_" + str(self.num_valid) + str(random.randint(1, 100000)), "wb"
+            ) as f:
+                pickle.dump(self.specs, f)
