@@ -248,6 +248,7 @@ class TwoStageAmp(gym.Env):
         self.num_os = len(list(self.specs.values())[0])
 
         # Get the g* (overall design spec) you want to reach
+        # primarily used for normalization
         self.fixed_goal_idx = -1
         self.global_g = []
         for spec in list(self.specs.values()):
