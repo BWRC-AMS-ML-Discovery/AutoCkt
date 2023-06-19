@@ -70,26 +70,36 @@ class TwoStageAmp(gym.Env):
     CIR_YAML = SPECS_DIR + "in/two_stage_opamp.yaml"
 
     def __init__(self, env_config):
-        # Custom attributes
+        # Custom attributes (not from gym.Env)
         self.multi_goal = env_config.get("multi_goal", False)
         self.generalize = env_config.get("generalize", False)
-        self.num_valid = env_config.get("num_valid", 50)
-        self.specs_save = env_config.get("save_specs", False)
+
+        # validation related
+        self.num_valid = env_config.get("num_valid", 50)  # Only used for validation
+        self.specs_save = env_config.get("save_specs", False)  # Right now, never saved
         self.valid = env_config.get("run_valid", False)
 
+        # env steps
         self.env_steps = 0
 
         self._load_specs()
         self._save_specs()
 
         self.specs_ideal = []
+
+        # ['gain_min', 'ibias_max', 'phm_min', 'ugbw_min']
         self.specs_id = list(self.specs.keys())
+
         self.fixed_goal_idx = -1
+
+        # num_specs (originally 350)
         self.num_os = len(list(self.specs.values())[0])
 
         # param array
         params = yaml_data["params"]
         self.params = []
+
+        # ['mp1', 'mn1', 'mp3', 'mn3', 'mn4', 'mn5', 'cc']
         self.params_id = list(params.keys())
 
         for value in params.values():
