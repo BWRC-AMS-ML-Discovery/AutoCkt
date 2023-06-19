@@ -83,18 +83,17 @@ class TwoStageAmp(gym.Env):
         self.valid = env_config.get("run_valid", False)  # Is running validation
         self.obj_idx = 0  # objective number (used for validation)
 
-        # env steps
-        self.env_steps = 0
-
+        # load specs and params
         self._load_specs()
         self._save_specs()
         self._load_params()
 
         # initialize sim environment
+        self.env_steps = 0
         self.action_meaning = [-1, 0, 2]
+        self._set_gym_attributes()
 
         # initialize current param/spec observations
-        self._set_gym_attributes()
 
         # [0., 0., 0., 0.]
         self.cur_specs = np.zeros(len(self.specs_id), dtype=np.float32)
