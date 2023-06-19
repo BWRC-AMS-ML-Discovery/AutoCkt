@@ -152,11 +152,13 @@ class TwoStageAmp(gym.Env):
             print("re:", reward)
             print("-" * 10)
 
+        # observation
         cur_spec_norm = self.lookup(self.cur_specs, self.global_g)
         self.ob = np.concatenate(
             [cur_spec_norm, self.specs_ideal_norm, self.cur_params_idx]
         )
 
+        # states
         self.env_steps = self.env_steps + 1
 
         # print('cur ob:' + str(self.cur_specs))
@@ -329,6 +331,7 @@ class TwoStageAmp(gym.Env):
         # [2, 1, 2, 2, 1, 1, 2]
         action = list(np.reshape(np.array(action), (np.array(action).shape[0],)))
 
+        # Move left or right
         self.cur_params_idx = self.cur_params_idx + np.array(
             [self.action_meaning[a] for a in action]
         )
