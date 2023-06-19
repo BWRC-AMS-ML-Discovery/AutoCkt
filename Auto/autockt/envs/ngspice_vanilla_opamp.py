@@ -65,7 +65,6 @@ class TwoStageAmp(gym.Env):
     PERF_HIGH = 0
 
     # obtains yaml file
-    path = os.getcwd()
     CIR_YAML = SPECS_DIR + "in/two_stage_opamp.yaml"
 
     def __init__(self, env_config):
