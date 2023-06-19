@@ -43,31 +43,32 @@ config_train = {
 }
 
 
+config_experiment = {
+    "checkpoint_freq": 1,
+    "run": "PPO",
+    "env": TwoStageAmp,
+    "config": config_train,
+}
+
+
 # Runs training and saves the result in ~/ray_results/train_ngspice_45nm
 # If checkpoint fails for any reason, training can be restored
 if not args.checkpoint_dir:
     tune.run_experiments(
         {
-            "train_45nm_ngspice": {
-                "checkpoint_freq": 1,
-                "run": "PPO",
-                "env": TwoStageAmp,
+            "train_45nm_ngspice": config_experiment
+            | {
                 "stop": {"episode_reward_mean": -0.02},
-                "config": config_train,
-            },
+            }
         }
     )
 else:
     print("RESTORING NOW!!!!!!")
     tune.run_experiments(
         {
-            "restore_ppo": {
-                "run": "PPO",
-                "config": config_train,
-                "env": TwoStageAmp,
-                # "restore": trials[0]._checkpoint.value},
+            "restore_ppo": config_experiment
+            | {
                 "restore": args.checkpoint_dir,
-                "checkpoint_freq": 1,
-            },
+            }
         }
     )
