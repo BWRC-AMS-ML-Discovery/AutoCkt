@@ -18,9 +18,6 @@ parser.add_argument("--checkpoint_dir", "-cpd", type=str)
 args = parser.parse_args()
 
 
-ray.init()
-
-
 # configures training of the agent with associated hyperparameters
 # See Ray documentation for details on each parameter
 config_train = {
@@ -50,6 +47,9 @@ config_experiment = {
     "config": config_train,
 }
 
+
+# Ray training starts
+ray.init()
 
 # Runs training and saves the result in ~/ray_results/train_ngspice_45nm
 # If checkpoint fails for any reason, training can be restored
