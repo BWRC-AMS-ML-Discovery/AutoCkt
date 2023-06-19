@@ -71,7 +71,7 @@ class TwoStageAmp(gym.Env):
     def __init__(self, env_config):
         # Custom attributes (not from gym.Env)
 
-        # TODO
+        # control ideal specs
         self.multi_goal = env_config.get("multi_goal", False)
         self.generalize = env_config.get("generalize", False)
 
