@@ -101,14 +101,6 @@ class TwoStageAmp(gym.Env):
         # [0, 0, 0, 0, 0, 0, 0]
         self.cur_params_idx = np.zeros(len(self.params_id), dtype=np.int32)
 
-        # Get the g* (overall design spec) you want to reach
-        self.fixed_goal_idx = -1
-        self.global_g = []
-        for spec in list(self.specs.values()):
-            self.global_g.append(float(spec[self.fixed_goal_idx]))
-        self.g_star = np.array(self.global_g)
-        self.global_g = np.array(yaml_data["normalize"])
-
     def reset(self):
         self._set_ideal_specs()
 
@@ -246,7 +238,7 @@ class TwoStageAmp(gym.Env):
         # )
         self.specs = OrderedDict(sorted(specs.items(), key=lambda k: k[0]))
 
-        # TODO
+        # To be filled in later
         self.specs_ideal = []
 
         # ['gain_min', 'ibias_max', 'phm_min', 'ugbw_min']
@@ -254,6 +246,14 @@ class TwoStageAmp(gym.Env):
 
         # num_specs (originally 350)
         self.num_os = len(list(self.specs.values())[0])
+
+        # Get the g* (overall design spec) you want to reach
+        self.fixed_goal_idx = -1
+        self.global_g = []
+        for spec in list(self.specs.values()):
+            self.global_g.append(float(spec[self.fixed_goal_idx]))
+        self.g_star = np.array(self.global_g)
+        self.global_g = np.array(yaml_data["normalize"])
 
     def _save_specs(self):
         if self.specs_save:
