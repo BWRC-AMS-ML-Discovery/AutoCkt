@@ -55,6 +55,9 @@ class OrderedDictYAMLLoader(yaml.Loader):
         return mapping
 
 class TwoStageAmp(gym.Env):
+    print("class TwoStageAmp")
+    IPython.core.debugger.set_trace()
+
     metadata = {'render.modes': ['human']}
 
     PERF_LOW = -1
@@ -65,6 +68,9 @@ class TwoStageAmp(gym.Env):
     CIR_YAML = path+'/eval_engines/ngspice/ngspice_inputs/yaml_files/two_stage_opamp.yaml'
 
     def __init__(self, env_config):
+        print("class TwoStageAmp __init__")
+        IPython.core.debugger.set_trace()
+
         self.multi_goal = env_config.get("multi_goal",False)
         self.generalize = env_config.get("generalize",False)
         num_valid = env_config.get("num_valid",50)
@@ -102,6 +108,11 @@ class TwoStageAmp(gym.Env):
             param_vec = np.arange(value[0], value[1], value[2])
             self.params.append(param_vec)
         
+
+        print("class TwoStageAmp before sim_env")
+        IPython.core.debugger.set_trace()
+
+        
         #initialize sim environment
         self.sim_env = TwoStageClass(yaml_path=TwoStageAmp.CIR_YAML, num_process=1, path=TwoStageAmp.path) 
         self.action_meaning = [-1,0,2] 
@@ -124,6 +135,11 @@ class TwoStageAmp(gym.Env):
         
         #objective number (used for validation)
         self.obj_idx = 0
+
+        
+        print("class TwoStageAmp end of __init__")
+        IPython.core.debugger.set_trace()
+
 
     def reset(self):
         #if multi-goal is selected, every time reset occurs, it will select a different design spec as objective
