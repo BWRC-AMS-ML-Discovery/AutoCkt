@@ -102,6 +102,9 @@ class TwoStageAmp(gym.Env):
         self.cur_params_idx = np.zeros(len(self.params_id), dtype=np.int32)
 
     def reset(self):
+        """
+        Called when horizon is reached (or when env is reset, which never happens in our code)
+        """
         self._set_ideal_specs()
 
         # initialize current parameters
