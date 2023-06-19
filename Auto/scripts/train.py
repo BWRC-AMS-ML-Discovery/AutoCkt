@@ -47,10 +47,10 @@ config_train = {
 
 
 config_experiment = {
-    "checkpoint_freq": 1,
-    "run": "PPO",
     "env": TwoStageAmp,
     "config": config_train,
+    "run": "PPO",
+    "checkpoint_freq": 1,
 }
 
 

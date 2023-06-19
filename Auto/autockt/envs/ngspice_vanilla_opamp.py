@@ -59,7 +59,9 @@ class OrderedDictYAMLLoader(yaml.Loader):
 
 
 class TwoStageAmp(gym.Env):
-    metadata = {"render.modes": ["human"]}
+    metadata = {
+        "render.modes": ["human"],
+    }
 
     PERF_LOW = -1
     PERF_HIGH = 0
