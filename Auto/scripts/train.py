@@ -1,3 +1,9 @@
+"""
+# Used to be: Val AutoBag Ray(?)
+FIXME: description here! 
+"""
+
+
 if __name__ != "__main__":
     raise Exception("This is a SCRIPT and should be run as __main__!")
 
