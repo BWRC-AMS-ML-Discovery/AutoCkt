@@ -94,9 +94,7 @@ class TwoStageAmp(gym.Env):
         self._load_params()
 
         # initialize sim environment
-        self.sim_env = TwoStageClass(
-            yaml_path=TwoStageAmp.CIR_YAML, num_process=1, path=TwoStageAmp.path
-        )
+        self.sim_env = None
         self.action_meaning = [-1, 0, 2]
         self.action_space = spaces.Tuple(
             [spaces.Discrete(len(self.action_meaning))] * len(self.params_id)
