@@ -47,7 +47,10 @@ def create_parser(parser_creator=None):
     parser.add_argument(
         "checkpoint", type=str, help="Checkpoint from which to roll out."
     )
-    required_named = parser.add_argument_group("required named arguments")
+
+    required_named = parser.add_argument_group(
+        "required named arguments",
+    )
     required_named.add_argument(
         "--run",
         type=str,
@@ -57,7 +60,12 @@ def create_parser(parser_creator=None):
         "user-defined trainable function or class registered in the "
         "tune registry.",
     )
-    required_named.add_argument("--env", type=str, help="The gym environment to use.")
+    required_named.add_argument(
+        "--env",
+        type=str,
+        help="The gym environment to use.",
+    )
+
     parser.add_argument(
         "--no-render",
         default=False,
@@ -65,8 +73,16 @@ def create_parser(parser_creator=None):
         const=True,
         help="Surpress rendering of the environment.",
     )
-    parser.add_argument("--steps", default=10000, help="Number of steps to roll out.")
-    parser.add_argument("--out", default=None, help="Output filename.")
+    parser.add_argument(
+        "--steps",
+        default=10000,
+        help="Number of steps to roll out.",
+    )
+    parser.add_argument(
+        "--out",
+        default=None,
+        help="Output filename.",
+    )
     parser.add_argument(
         "--config",
         default="{}",
