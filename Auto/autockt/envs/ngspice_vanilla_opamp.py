@@ -81,6 +81,7 @@ class TwoStageAmp(gym.Env):
         # validation related
         self.num_valid = env_config.get("num_valid", 50)  # Only used for validation
         self.valid = env_config.get("run_valid", False)  # Is running validation
+        self.obj_idx = 0  # objective number (used for validation)
 
         # env steps
         self.env_steps = 0
@@ -94,10 +95,12 @@ class TwoStageAmp(gym.Env):
 
         # initialize sim environment
         self.action_meaning = [-1, 0, 2]
+
+        # Tuple(Discrete(3), Discrete(3), Discrete(3), Discrete(3), Discrete(3), Discrete(3), Discrete(3))
         self.action_space = spaces.Tuple(
             [spaces.Discrete(len(self.action_meaning))] * len(self.params_id)
         )
-        # self.action_space = spaces.Discrete(len(self.action_meaning)**len(self.params_id))
+
         self.observation_space = spaces.Box(
             low=np.array(
                 [TwoStageAmp.PERF_LOW] * 2 * len(self.specs_id)
@@ -110,7 +113,11 @@ class TwoStageAmp(gym.Env):
         )
 
         # initialize current param/spec observations
+
+        # [0., 0., 0., 0.]
         self.cur_specs = np.zeros(len(self.specs_id), dtype=np.float32)
+
+        # [0, 0, 0, 0, 0, 0, 0]
         self.cur_params_idx = np.zeros(len(self.params_id), dtype=np.int32)
 
         # Get the g* (overall design spec) you want to reach
@@ -119,9 +126,6 @@ class TwoStageAmp(gym.Env):
             self.global_g.append(float(spec[self.fixed_goal_idx]))
         self.g_star = np.array(self.global_g)
         self.global_g = np.array(yaml_data["normalize"])
-
-        # objective number (used for validation)
-        self.obj_idx = 0
 
     def reset(self):
         # if multi-goal is selected, every time reset occurs, it will select a different design spec as objective
