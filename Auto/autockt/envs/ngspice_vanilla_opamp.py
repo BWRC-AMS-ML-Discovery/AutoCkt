@@ -71,13 +71,17 @@ class TwoStageAmp(gym.Env):
 
     def __init__(self, env_config):
         # Custom attributes (not from gym.Env)
+
+        # TODO
         self.multi_goal = env_config.get("multi_goal", False)
         self.generalize = env_config.get("generalize", False)
 
+        # specs related
+        self.specs_save = env_config.get("save_specs", False)  # Right now, never saved
+
         # validation related
         self.num_valid = env_config.get("num_valid", 50)  # Only used for validation
-        self.specs_save = env_config.get("save_specs", False)  # Right now, never saved
-        self.valid = env_config.get("run_valid", False)
+        self.valid = env_config.get("run_valid", False)  # Is running validation
 
         # env steps
         self.env_steps = 0
