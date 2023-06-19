@@ -172,6 +172,9 @@ class TwoStageAmp(gym.Env):
         return self.ob, reward, done, {}
 
     def lookup(self, spec, goal_spec):
+        """
+        Normalizes (so-called) spec to goal_spec
+        """
         goal_spec = [float(e) for e in goal_spec]
         norm_spec = (spec - goal_spec) / (goal_spec + spec)
         return norm_spec
@@ -287,6 +290,7 @@ class TwoStageAmp(gym.Env):
         )
 
         # Each spec from PERF_LOW to PERF_HIGH, and each param from 1 to 1 (constant)
+        # ! which is actually wrong! every slot can go out of bounds!
         self.observation_space = spaces.Box(
             low=np.array(
                 [TwoStageAmp.PERF_LOW] * 2 * len(self.specs_id)
@@ -321,4 +325,8 @@ class TwoStageAmp(gym.Env):
                 for spec in list(self.specs.values()):
                     self.specs_ideal.append(spec[idx])
                 self.specs_ideal = np.array(self.specs_ideal)
+
+        # array([2.42000000e+02, 3.34670575e-03, 6.00000000e+01, 2.18719243e+07])
+        # self.specs_ideal
+
         # print("num total:"+str(self.num_os))
