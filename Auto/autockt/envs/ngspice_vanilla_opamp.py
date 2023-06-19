@@ -14,7 +14,6 @@ import yaml
 import yaml.constructor
 
 # Workspace Imports
-from eval_engines.ngspice.TwoStageClass import *
 
 
 # FIXME Avoid storing files?
