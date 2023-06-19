@@ -139,6 +139,7 @@ class TwoStageAmp(gym.Env):
         # incentivize reaching goal state
         done = False
         if reward >= 10:
+            # ? In gym, done does not automatically call reset, but ray resets it when done?
             done = True
             print("-" * 10)
             print("params = ", self.cur_params_idx)
