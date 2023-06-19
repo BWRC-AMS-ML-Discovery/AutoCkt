@@ -230,10 +230,10 @@ class TwoStageAmp(gym.Env):
 
         # OrderedDict(
         #     [
-        #         ("gain_min", (200, 400)),
-        #         ("ibias_max", (0.0001, 0.01)),
-        #         ("phm_min", (60, 60.0000001)),
-        #         ("ugbw_min", (1000000.0, 25000000.0)),
+        #         ("gain_min", (200, 400, ...in_between)),
+        #         ("ibias_max", (0.0001, 0.01, ...in_between)),
+        #         ("phm_min", (60, 60.0000001, ...in_between)),
+        #         ("ugbw_min", (1000000.0, 25000000.0, ...in_between)),
         #     ]
         # )
         self.specs = OrderedDict(sorted(specs.items(), key=lambda k: k[0]))
