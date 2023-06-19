@@ -265,6 +265,11 @@ class TwoStageAmp(gym.Env):
         cur_specs = OrderedDict(sorted(self.sim_env.create_design_and_simulate(param_val[0])[1].items(), key=lambda k:k[0]))
         cur_specs = np.array(list(cur_specs.values()))
 
+
+        print("class TwoStageAmp end of update")
+        IPython.core.debugger.set_trace()
+
+
         return cur_specs
 
 def main():
