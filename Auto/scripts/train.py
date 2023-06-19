@@ -39,7 +39,7 @@ config_train = {
         "fcnet_hiddens": [64, 64],
     },
     "num_workers": 1,
-    "env_config": {
+    "env_config": {  # a kwarg to the env constructor
         "generalize": True,
         "run_valid": False,
     },
