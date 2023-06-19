@@ -149,7 +149,6 @@ class TwoStageAmp(gym.Env):
         )
         # Get current specs and normalize
         self.cur_specs = self.update(self.cur_params_idx)
-        cur_spec_norm = self.lookup(self.cur_specs, self.global_g)
         reward = self.reward(self.cur_specs, self.specs_ideal)
         done = False
 
@@ -163,9 +162,11 @@ class TwoStageAmp(gym.Env):
             print("re:", reward)
             print("-" * 10)
 
+        cur_spec_norm = self.lookup(self.cur_specs, self.global_g)
         self.ob = np.concatenate(
             [cur_spec_norm, self.specs_ideal_norm, self.cur_params_idx]
         )
+
         self.env_steps = self.env_steps + 1
 
         # print('cur ob:' + str(self.cur_specs))
