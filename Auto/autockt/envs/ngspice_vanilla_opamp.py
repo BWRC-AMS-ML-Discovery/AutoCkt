@@ -88,24 +88,23 @@ class TwoStageAmp(gym.Env):
 
         self._load_specs()
         self._save_specs()
-
         self.specs_ideal = []
 
         # ['gain_min', 'ibias_max', 'phm_min', 'ugbw_min']
         self.specs_id = list(self.specs.keys())
 
-        self.fixed_goal_idx = -1
-
         # num_specs (originally 350)
         self.num_os = len(list(self.specs.values())[0])
 
+        self.fixed_goal_idx = -1
+
         # param array
         params = yaml_data["params"]
-        self.params = []
 
         # ['mp1', 'mn1', 'mp3', 'mn3', 'mn4', 'mn5', 'cc']
         self.params_id = list(params.keys())
 
+        self.params = []
         for value in params.values():
             param_vec = np.arange(value[0], value[1], value[2])
             self.params.append(param_vec)
