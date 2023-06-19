@@ -56,8 +56,8 @@ config_experiment = {
 if not args.checkpoint_dir:
     tune.run_experiments(
         {
-            "train_45nm_ngspice": config_experiment
-            | {
+            "train_45nm_ngspice": {
+                **config_experiment,
                 "stop": {"episode_reward_mean": -0.02},
             }
         }
@@ -66,8 +66,8 @@ else:
     print("RESTORING NOW!!!!!!")
     tune.run_experiments(
         {
-            "restore_ppo": config_experiment
-            | {
+            "restore_ppo": {
+                **config_experiment,
                 "restore": args.checkpoint_dir,
             }
         }
