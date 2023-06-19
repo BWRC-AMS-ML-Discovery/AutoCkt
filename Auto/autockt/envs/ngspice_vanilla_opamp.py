@@ -135,20 +135,7 @@ class TwoStageAmp(gym.Env):
         :return:
         """
 
-        # Take action that RL agent returns to change current params
-        # [2, 1, 2, 2, 1, 1, 2]
-        action = list(np.reshape(np.array(action), (np.array(action).shape[0],)))
-
-        self.cur_params_idx = self.cur_params_idx + np.array(
-            [self.action_meaning[a] for a in action]
-        )
-
-        # Clip to make sure indexes do not go out of bounds
-        self.cur_params_idx = np.clip(
-            self.cur_params_idx,
-            [0] * len(self.params_id),
-            [(len(param_vec) - 1) for param_vec in self.params],
-        )
+        self._take_action_to_update_params(action)
 
         # Get current specs and normalize
         self.cur_specs = self.update(self.cur_params_idx)
@@ -336,3 +323,19 @@ class TwoStageAmp(gym.Env):
         # self.specs_ideal
 
         # print("num total:"+str(self.num_os))
+
+    def _take_action_to_update_params(self, action):
+        # Take action that RL agent returns to change current params
+        # [2, 1, 2, 2, 1, 1, 2]
+        action = list(np.reshape(np.array(action), (np.array(action).shape[0],)))
+
+        self.cur_params_idx = self.cur_params_idx + np.array(
+            [self.action_meaning[a] for a in action]
+        )
+
+        # Clip to make sure indexes do not go out of bounds
+        self.cur_params_idx = np.clip(
+            self.cur_params_idx,
+            [0] * len(self.params_id),
+            [(len(param_vec) - 1) for param_vec in self.params],
+        )
