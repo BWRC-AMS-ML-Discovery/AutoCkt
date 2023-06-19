@@ -93,24 +93,8 @@ class TwoStageAmp(gym.Env):
         # initialize sim environment
         self.action_meaning = [-1, 0, 2]
 
-        # Tuple(Discrete(3), Discrete(3), Discrete(3), Discrete(3), Discrete(3), Discrete(3), Discrete(3))
-        self.action_space = spaces.Tuple(
-            [spaces.Discrete(len(self.action_meaning))] * len(self.params_id)
-        )
-
-        # Each spec from PERF_LOW to PERF_HIGH, and each param from 1 to 1 (constant)
-        self.observation_space = spaces.Box(
-            low=np.array(
-                [TwoStageAmp.PERF_LOW] * 2 * len(self.specs_id)
-                + len(self.params_id) * [1]
-            ),
-            high=np.array(
-                [TwoStageAmp.PERF_HIGH] * 2 * len(self.specs_id)
-                + len(self.params_id) * [1]
-            ),
-        )
-
         # initialize current param/spec observations
+        self._set_gym_attributes()
 
         # [0., 0., 0., 0.]
         self.cur_specs = np.zeros(len(self.specs_id), dtype=np.float32)
@@ -318,3 +302,21 @@ class TwoStageAmp(gym.Env):
         for value in params.values():
             param_vec = np.arange(value[0], value[1], value[2])
             self.params.append(param_vec)
+
+    def _set_gym_attributes(self):
+        # Tuple(Discrete(3), Discrete(3), Discrete(3), Discrete(3), Discrete(3), Discrete(3), Discrete(3))
+        self.action_space = spaces.Tuple(
+            [spaces.Discrete(len(self.action_meaning))] * len(self.params_id)
+        )
+
+        # Each spec from PERF_LOW to PERF_HIGH, and each param from 1 to 1 (constant)
+        self.observation_space = spaces.Box(
+            low=np.array(
+                [TwoStageAmp.PERF_LOW] * 2 * len(self.specs_id)
+                + len(self.params_id) * [1]
+            ),
+            high=np.array(
+                [TwoStageAmp.PERF_HIGH] * 2 * len(self.specs_id)
+                + len(self.params_id) * [1]
+            ),
+        )
