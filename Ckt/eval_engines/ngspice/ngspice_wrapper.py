@@ -122,24 +122,6 @@ class NgSpiceWrapper(object):
         specs = self.translate_result(design_folder)
         return state, specs, info
 
-    def run(self, states, design_names=None, verbose=False):
-        """
-
-        :param states:
-        :param design_names: if None default design name will be used, otherwise the given design name will be used
-        :param verbose: If True it will print the design name that was created
-        :return:
-            results = [(state: dict(param_kwds, param_value), specs: dict(spec_kwds, spec_value), info: int)]
-        """
-        pool = ThreadPool(processes=self.num_process)
-        arg_list = [
-            (state, dsn_name, verbose)
-            for (state, dsn_name) in zip(states, design_names)
-        ]
-        specs = pool.starmap(self.create_design_and_simulate, arg_list)
-        pool.close()
-        return specs
-
     def translate_result(self, output_path):
         """
         This method needs to be overwritten according to cicuit needs,
