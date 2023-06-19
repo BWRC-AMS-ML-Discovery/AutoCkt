@@ -110,29 +110,7 @@ class TwoStageAmp(gym.Env):
         self.global_g = np.array(yaml_data["normalize"])
 
     def reset(self):
-        # if multi-goal is selected, every time reset occurs, it will select a different design spec as objective
-        if self.generalize == True:
-            if self.valid == True:
-                if self.obj_idx > self.num_os - 1:
-                    self.obj_idx = 0
-                idx = self.obj_idx
-                self.obj_idx += 1
-            else:
-                idx = random.randint(0, self.num_os - 1)
-            self.specs_ideal = []
-            for spec in list(self.specs.values()):
-                self.specs_ideal.append(spec[idx])
-            self.specs_ideal = np.array(self.specs_ideal)
-        else:
-            if self.multi_goal == False:
-                self.specs_ideal = self.g_star
-            else:
-                idx = random.randint(0, self.num_os - 1)
-                self.specs_ideal = []
-                for spec in list(self.specs.values()):
-                    self.specs_ideal.append(spec[idx])
-                self.specs_ideal = np.array(self.specs_ideal)
-        # print("num total:"+str(self.num_os))
+        self._set_ideal_specs()
 
         # applicable only when you have multiple goals, normalizes everything to some global_g
         self.specs_ideal_norm = self.lookup(self.specs_ideal, self.global_g)
@@ -319,3 +297,28 @@ class TwoStageAmp(gym.Env):
                 + len(self.params_id) * [1]
             ),
         )
+
+    def _set_ideal_specs(self):
+        # if multi-goal is selected, every time reset occurs, it will select a different design spec as objective
+        if self.generalize == True:
+            if self.valid == True:
+                if self.obj_idx > self.num_os - 1:
+                    self.obj_idx = 0
+                idx = self.obj_idx
+                self.obj_idx += 1
+            else:
+                idx = random.randint(0, self.num_os - 1)
+            self.specs_ideal = []
+            for spec in list(self.specs.values()):
+                self.specs_ideal.append(spec[idx])
+            self.specs_ideal = np.array(self.specs_ideal)
+        else:
+            if self.multi_goal == False:
+                self.specs_ideal = self.g_star
+            else:
+                idx = random.randint(0, self.num_os - 1)
+                self.specs_ideal = []
+                for spec in list(self.specs.values()):
+                    self.specs_ideal.append(spec[idx])
+                self.specs_ideal = np.array(self.specs_ideal)
+        # print("num total:"+str(self.num_os))
