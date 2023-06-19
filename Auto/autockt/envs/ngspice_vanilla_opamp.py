@@ -94,7 +94,6 @@ class TwoStageAmp(gym.Env):
         self._load_params()
 
         # initialize sim environment
-        self.sim_env = None
         self.action_meaning = [-1, 0, 2]
         self.action_space = spaces.Tuple(
             [spaces.Discrete(len(self.action_meaning))] * len(self.params_id)
@@ -250,9 +249,9 @@ class TwoStageAmp(gym.Env):
         cur_specs = OrderedDict(
             sorted(
                 #
-                # FIXME: this call here gotta get replaced!
+                # !!! FIXME: this call here gotta get replaced!
                 #
-                self.sim_env.create_design_and_simulate(param_val[0])[1].items(),
+                create_design_and_simulate(param_val[0])[1].items(),
                 key=lambda k: k[0],
             )
         )
