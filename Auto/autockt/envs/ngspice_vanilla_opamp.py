@@ -88,13 +88,6 @@ class TwoStageAmp(gym.Env):
 
         self._load_specs()
         self._save_specs()
-        self.specs_ideal = []
-
-        # ['gain_min', 'ibias_max', 'phm_min', 'ugbw_min']
-        self.specs_id = list(self.specs.keys())
-
-        # num_specs (originally 350)
-        self.num_os = len(list(self.specs.values())[0])
 
         self.fixed_goal_idx = -1
 
@@ -285,7 +278,24 @@ class TwoStageAmp(gym.Env):
             with open(load_specs_path, "rb") as f:
                 specs = pickle.load(f)
 
+        # OrderedDict(
+        #     [
+        #         ("gain_min", (200, 400)),
+        #         ("ibias_max", (0.0001, 0.01)),
+        #         ("phm_min", (60, 60.0000001)),
+        #         ("ugbw_min", (1000000.0, 25000000.0)),
+        #     ]
+        # )
         self.specs = OrderedDict(sorted(specs.items(), key=lambda k: k[0]))
+
+        # TODO
+        self.specs_ideal = []
+
+        # ['gain_min', 'ibias_max', 'phm_min', 'ugbw_min']
+        self.specs_id = list(self.specs.keys())
+
+        # num_specs (originally 350)
+        self.num_os = len(list(self.specs.values())[0])
 
     def _save_specs(self):
         if self.specs_save:
@@ -304,6 +314,7 @@ class TwoStageAmp(gym.Env):
         # ['mp1', 'mn1', 'mp3', 'mn3', 'mn4', 'mn5', 'cc']
         self.params_id = list(params.keys())
 
+        # [array, array, array, array, array, array, array]
         self.params = []
         for value in params.values():
             param_vec = np.arange(value[0], value[1], value[2])
