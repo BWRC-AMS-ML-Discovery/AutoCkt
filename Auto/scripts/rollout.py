@@ -1,7 +1,11 @@
 """
-# Rollout 
+# Used to be: Rollout 
 FIXME: description here! 
 """
+
+
+if __name__ != "__main__":
+    raise Exception("This is a SCRIPT and should be run as __main__!")
 
 
 # Std-Lib Imports
