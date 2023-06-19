@@ -98,6 +98,7 @@ class TwoStageAmp(gym.Env):
             [spaces.Discrete(len(self.action_meaning))] * len(self.params_id)
         )
 
+        # Each spec from PERF_LOW to PERF_HIGH, and each param from 1 to 1 (constant)
         self.observation_space = spaces.Box(
             low=np.array(
                 [TwoStageAmp.PERF_LOW] * 2 * len(self.specs_id)
