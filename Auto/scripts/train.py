@@ -32,7 +32,9 @@ config_train = {
     # "vf_loss_coeff": 0.5,
     "horizon": 30,
     "num_gpus": 0,
-    "model": {"fcnet_hiddens": [64, 64]},
+    "model": {
+        "fcnet_hiddens": [64, 64],
+    },
     "num_workers": 1,
     "env_config": {
         "generalize": True,
@@ -44,7 +46,7 @@ config_train = {
 # Runs training and saves the result in ~/ray_results/train_ngspice_45nm
 # If checkpoint fails for any reason, training can be restored
 if not args.checkpoint_dir:
-    trials = tune.run_experiments(
+    tune.run_experiments(
         {
             "train_45nm_ngspice": {
                 "checkpoint_freq": 1,
