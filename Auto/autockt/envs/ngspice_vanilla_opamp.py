@@ -72,7 +72,7 @@ class TwoStageAmp(gym.Env):
     def __init__(self, env_config):
         self.multi_goal = env_config.get("multi_goal", False)
         self.generalize = env_config.get("generalize", False)
-        num_valid = env_config.get("num_valid", 50)
+        self.num_valid = env_config.get("num_valid", 50)
         self.specs_save = env_config.get("save_specs", False)
         self.valid = env_config.get("run_valid", False)
 
@@ -95,7 +95,7 @@ class TwoStageAmp(gym.Env):
         self.specs = OrderedDict(sorted(specs.items(), key=lambda k: k[0]))
         if self.specs_save:
             with open(
-                "specs_" + str(num_valid) + str(random.randint(1, 100000)), "wb"
+                "specs_" + str(self.num_valid) + str(random.randint(1, 100000)), "wb"
             ) as f:
                 pickle.dump(self.specs, f)
 
