@@ -136,23 +136,26 @@ class TwoStageAmp(gym.Env):
         """
 
         # Take action that RL agent returns to change current params
+        # [2, 1, 2, 2, 1, 1, 2]
         action = list(np.reshape(np.array(action), (np.array(action).shape[0],)))
+
         self.cur_params_idx = self.cur_params_idx + np.array(
             [self.action_meaning[a] for a in action]
         )
 
-        #        self.cur_params_idx = self.cur_params_idx + np.array(self.action_arr[int(action)])
+        # Clip to make sure indexes do not go out of bounds
         self.cur_params_idx = np.clip(
             self.cur_params_idx,
             [0] * len(self.params_id),
             [(len(param_vec) - 1) for param_vec in self.params],
         )
+
         # Get current specs and normalize
         self.cur_specs = self.update(self.cur_params_idx)
         reward = self.reward(self.cur_specs, self.specs_ideal)
-        done = False
 
         # incentivize reaching goal state
+        done = False
         if reward >= 10:
             done = True
             print("-" * 10)
