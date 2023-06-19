@@ -3,10 +3,6 @@
 FIXME: description here! 
 """
 
-# FIXME: we really need these future stuff? Python2 is long dead man!
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 # Std-Lib Imports
 import os
@@ -22,7 +18,7 @@ from ray.rllib.agents.registry import get_agent_class
 from ray.tune.registry import register_env
 
 # Workspace Imports
-from autockt.envs.spectre_vanilla_opamp import TwoStageAmp
+from autockt.envs.ngspice_vanilla_opamp import TwoStageAmp
 
 
 EXAMPLE_USAGE = """
