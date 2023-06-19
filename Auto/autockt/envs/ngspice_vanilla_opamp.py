@@ -98,16 +98,7 @@ class TwoStageAmp(gym.Env):
 
         self.fixed_goal_idx = -1
 
-        # param array
-        params = yaml_data["params"]
-
-        # ['mp1', 'mn1', 'mp3', 'mn3', 'mn4', 'mn5', 'cc']
-        self.params_id = list(params.keys())
-
-        self.params = []
-        for value in params.values():
-            param_vec = np.arange(value[0], value[1], value[2])
-            self.params.append(param_vec)
+        self._load_params()
 
         # initialize sim environment
         self.sim_env = TwoStageClass(
@@ -302,3 +293,18 @@ class TwoStageAmp(gym.Env):
                 "specs_" + str(self.num_valid) + str(random.randint(1, 100000)), "wb"
             ) as f:
                 pickle.dump(self.specs, f)
+
+    def _load_params(self):
+        with open(TwoStageAmp.CIR_YAML, "r") as f:
+            yaml_data = yaml.load(f, OrderedDictYAMLLoader)
+
+        # param array
+        params = yaml_data["params"]
+
+        # ['mp1', 'mn1', 'mp3', 'mn3', 'mn4', 'mn5', 'cc']
+        self.params_id = list(params.keys())
+
+        self.params = []
+        for value in params.values():
+            param_vec = np.arange(value[0], value[1], value[2])
+            self.params.append(param_vec)
