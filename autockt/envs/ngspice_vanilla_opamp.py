@@ -219,6 +219,12 @@ class TwoStageAmp(gym.Env):
         #print('cur ob:' + str(self.cur_specs))
         #print('ideal spec:' + str(self.specs_ideal))
         #print(reward)
+
+
+        print("class TwoStageAmp end of step")
+        IPython.core.debugger.set_trace()
+
+
         return self.ob, reward, done, {}
 
     def lookup(self, spec, goal_spec):
